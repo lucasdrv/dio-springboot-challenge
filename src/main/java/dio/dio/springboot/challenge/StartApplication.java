@@ -1,6 +1,7 @@
 package dio.dio.springboot.challenge;
 
 import dio.dio.springboot.challenge.model.User;
+import dio.dio.springboot.challenge.service.UserRepository;
 import dio.dio.springboot.challenge.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -9,18 +10,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class StartApplication implements CommandLineRunner {
     @Autowired
-    private UserService service;
+    private UserRepository repository;
     @Override
     public void run(String... args) throws Exception {
-        for(int x=1; x<=5;x++){
-            service.gravar(new User("user"+x));
-        }
-        User user2 = service.buscarPorUsername("user2");
-        user2.setName("MASTER");
-        service.alterar(user2);
+        User user = new User();
+        user.setName("GLEYSON");
+        user.setUsername("glysns");
+        user.setPassword("spring-data-jpa");
+        user.setRoles(null);
+        repository.save(user);
 
-        for(User user: service.listar()){
-            System.out.println(user);
+        for(User u: repository.findAll()){
+            System.out.println(u);
         }
     }
 }

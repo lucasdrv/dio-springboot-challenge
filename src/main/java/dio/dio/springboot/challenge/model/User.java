@@ -2,11 +2,22 @@ package dio.dio.springboot.challenge.model;
 
 import java.util.List;
 import java.util.Objects;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "tab_user")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_user")
+    private Integer id;
+    @Column(length = 50, nullable = false)
     private String name;
+    @Column(length = 20, nullable = false)
     private String username;
+    @Column(length = 100, nullable = false)
     private String password;
+    @Transient
     private List<String> roles;
 
     public User(){
